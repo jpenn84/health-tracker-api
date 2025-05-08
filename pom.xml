@@ -11,7 +11,7 @@
     <groupId>com.joshualeepenn</groupId>
     <artifactId>health-tracker-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>health-tracker</name>
+    <name>health-tracker-api</name>
     <description>health-tracker-api</description>
     <url/>
     <licenses>
