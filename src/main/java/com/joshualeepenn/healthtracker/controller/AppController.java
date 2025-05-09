@@ -16,7 +16,6 @@ public class AppController {
 
     @GetMapping("/status")
     public HttpEntity<AppStatus> getAlive() {
-
         return new HttpEntity<>(status);
     }
 }
