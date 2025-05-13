@@ -1,6 +1,8 @@
 package com.joshualeepenn.healthtracker.service;
 
+import com.joshualeepenn.healthtracker.dto.MessageDto;
 import com.joshualeepenn.healthtracker.model.Weight;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -16,4 +18,7 @@ public interface IWeightService {
     Weight saveWeight(Weight weight);
 
     List<Weight> findByDateBetween(ZonedDateTime startDate, ZonedDateTime endDate);
+
+    @Transactional
+    MessageDto deleteWeightById(Long id);
 }

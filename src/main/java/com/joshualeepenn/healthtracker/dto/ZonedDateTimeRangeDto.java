@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.ZonedDateTime;
 
 @Data
-public class ZonedDateTimeRange {
+public class ZonedDateTimeRangeDto {
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
 }

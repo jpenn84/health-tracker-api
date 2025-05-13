@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-public class AppStatus {
+public class AppStatusDto {
 
     @Value("${spring.application.name}")
     private String appName;

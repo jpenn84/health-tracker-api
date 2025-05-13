@@ -12,4 +12,5 @@ public interface WeightRepository extends JpaRepository<Weight, Long> {
 
     List<Weight> findAllByReadingTimeBetweenOrderByReadingTimeAsc(ZonedDateTime startDate, ZonedDateTime endDate);
 
+    Integer deleteWeightById(Long id);
 }

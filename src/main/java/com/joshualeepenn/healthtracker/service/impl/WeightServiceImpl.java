@@ -1,5 +1,8 @@
 package com.joshualeepenn.healthtracker.service.impl;
 
+import com.joshualeepenn.healthtracker.dto.MessageDto;
+import com.joshualeepenn.healthtracker.exceptions.ResourceNotFoundException;
+import com.joshualeepenn.healthtracker.exceptions.TransactionException;
 import com.joshualeepenn.healthtracker.model.Weight;
 import com.joshualeepenn.healthtracker.repository.WeightRepository;
 import com.joshualeepenn.healthtracker.service.IWeightService;
@@ -19,7 +22,12 @@ public class WeightServiceImpl implements IWeightService {
 
     @Override
     public Weight findById(Long id) {
-        return weightRepository.findById(id).orElse(null);
+        Weight weight =  weightRepository.findById(id).orElse(null);
+
+        if (null == weight)
+            throw new ResourceNotFoundException("Weight with id " + id + " not found");
+
+        return weight;
     }
 
     @Override
@@ -40,6 +48,18 @@ public class WeightServiceImpl implements IWeightService {
     @Override
     public List<Weight> findByDateBetween(ZonedDateTime startDate, ZonedDateTime endDate) {
         return weightRepository.findAllByReadingTimeBetweenOrderByReadingTimeAsc(startDate, endDate);
+    }
+
+    @Override
+    public MessageDto deleteWeightById(Long id) {
+        Weight weight = findById(id);
+
+        weightRepository.delete(weight);
+
+        if (!weightRepository.existsById(id))
+            return MessageDto.success("deleted weight with ID " + id);
+
+        else throw new TransactionException("Problem deleting weight with ID " + id);
     }
 
 }

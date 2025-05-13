@@ -24,6 +24,20 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorMessage> handleResourceNotFoundException(ResourceNotFoundException rnfe) {
+        ErrorMessage errorMessage = new ErrorMessage();
+        errorMessage.setErrorMessage(List.of(rnfe.getMessage()));
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(TransactionException.class)
+    public ResponseEntity<ErrorMessage> handleTransactionException(TransactionException te) {
+        ErrorMessage errorMessage = new ErrorMessage();
+        errorMessage.setErrorMessage(List.of(te.getMessage()));
+        return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @Data
     public static class ErrorMessage {
         private List<String> errorMessage;
