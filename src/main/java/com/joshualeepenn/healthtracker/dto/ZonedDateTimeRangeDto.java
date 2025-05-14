@@ -6,6 +6,6 @@ import java.time.ZonedDateTime;
 
 @Data
 public class ZonedDateTimeRangeDto {
-    private ZonedDateTime startDate;
-    private ZonedDateTime endDate;
+    private ZonedDateTime startZdt;
+    private ZonedDateTime endZdt;
 }

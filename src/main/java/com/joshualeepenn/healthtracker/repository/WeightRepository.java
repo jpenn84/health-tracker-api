@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface WeightRepository extends JpaRepository<Weight, Long> {
 
-    List<Weight> findAllByReadingTimeBetweenOrderByReadingTimeAsc(ZonedDateTime startDate, ZonedDateTime endDate);
+    List<Weight> findAllByReadingTimeBetweenOrderByReadingTimeAsc(ZonedDateTime startZdt, ZonedDateTime endZdt);
 
     Integer deleteWeightById(Long id);
 }

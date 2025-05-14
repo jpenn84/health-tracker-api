@@ -34,9 +34,10 @@ public class WeightController {
         return new HttpEntity<>(weightService.update(weight));
     }
 
-    @GetMapping("/date")
-    public HttpEntity<List<Weight>> getRange(@RequestBody ZonedDateTimeRangeDto dateRange) {
-        return new HttpEntity<>(weightService.findByDateBetween(dateRange.getStartDate(), dateRange.getEndDate()));
+    // TODO: May want to pass String dates (and time zone) and process from there
+    @GetMapping("/date/range")
+    public HttpEntity<List<Weight>> getRange(@RequestBody ZonedDateTimeRangeDto zdtRange) {
+        return new HttpEntity<>(weightService.findByDateBetween(zdtRange.getStartZdt(), zdtRange.getEndZdt()));
     }
 
     @PostMapping
