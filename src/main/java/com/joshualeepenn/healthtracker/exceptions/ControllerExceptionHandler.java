@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.time.zone.ZoneRulesException;
 import java.util.List;
 
 @ControllerAdvice
@@ -36,6 +37,20 @@ public class ControllerExceptionHandler {
         ErrorMessage errorMessage = new ErrorMessage();
         errorMessage.setErrorMessage(List.of(te.getMessage()));
         return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(ZoneRulesException.class)
+    public ResponseEntity<ErrorMessage> handleZoneRulesException(ZoneRulesException zr) {
+        ErrorMessage errorMessage = new ErrorMessage();
+        errorMessage.setErrorMessage(List.of(zr.getMessage()));
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorMessage> handleIllegalArgumentException(IllegalArgumentException iae) {
+        ErrorMessage errorMessage = new ErrorMessage();
+        errorMessage.setErrorMessage(List.of(iae.getMessage()));
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
     @Data
