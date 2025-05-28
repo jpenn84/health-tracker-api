@@ -45,12 +45,8 @@ public class WeightService {
     }
 
     public Weight findById(Long id) {
-        Weight weight =  weightRepository.findById(id).orElse(null);
-
-        if (null == weight)
-            throw new ResourceNotFoundException("Weight with id " + id + " not found");
-
-        return weight;
+        return weightRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException(String.format("Weight with id '%d' not found", id)));
     }
 
     @Transactional
@@ -65,8 +61,8 @@ public class WeightService {
         weightRepository.delete(weight);
 
         if (!weightRepository.existsById(id))
-            return MessageDto.success("deleted weight with ID " + id);
-        else throw new TransactionException("Problem deleting weight with ID " + id);
+            return MessageDto.success(String.format("deleted weight with ID '%d'", id));
+        else throw new TransactionException(String.format("Problem deleting weight with ID '%d'", id));
     }
 
 }
