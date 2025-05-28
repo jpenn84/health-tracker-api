@@ -3,7 +3,7 @@ package com.joshualeepenn.healthtracker.controller;
 import com.joshualeepenn.healthtracker.dto.MessageDto;
 import com.joshualeepenn.healthtracker.dto.ZonedDateTimeRangeDto;
 import com.joshualeepenn.healthtracker.model.Weight;
-import com.joshualeepenn.healthtracker.service.impl.WeightServiceImpl;
+import com.joshualeepenn.healthtracker.service.WeightService;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +13,9 @@ import java.util.List;
 @RequestMapping("/weight")
 public class WeightController {
 
-    private final WeightServiceImpl weightService;
+    private final WeightService weightService;
 
-    public WeightController(WeightServiceImpl weightService) {
+    public WeightController(WeightService weightService) {
         this.weightService = weightService;
     }
 
