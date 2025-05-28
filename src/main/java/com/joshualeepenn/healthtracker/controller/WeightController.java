@@ -19,9 +19,20 @@ public class WeightController {
         this.weightService = weightService;
     }
 
+    @PostMapping
+    public HttpEntity<Weight> create(@RequestBody Weight weight) {
+        return new HttpEntity<>(weightService.saveWeight(weight));
+    }
+
     @GetMapping("/all")
     public HttpEntity<List<Weight>> getAll() {
         return new HttpEntity<>(weightService.getAllWeights());
+    }
+
+    // TODO: May want to pass String dates (and time zone) and process from there
+    @GetMapping("/date/range")
+    public HttpEntity<List<Weight>> getRange(@RequestBody ZonedDateTimeRangeDto zdtRange) {
+        return new HttpEntity<>(weightService.findByDateBetween(zdtRange.getStartZdt(), zdtRange.getEndZdt()));
     }
 
     @GetMapping("/{id}")
@@ -32,17 +43,6 @@ public class WeightController {
     @PutMapping
     public HttpEntity<Weight> update(@RequestBody Weight weight) {
         return new HttpEntity<>(weightService.update(weight));
-    }
-
-    // TODO: May want to pass String dates (and time zone) and process from there
-    @GetMapping("/date/range")
-    public HttpEntity<List<Weight>> getRange(@RequestBody ZonedDateTimeRangeDto zdtRange) {
-        return new HttpEntity<>(weightService.findByDateBetween(zdtRange.getStartZdt(), zdtRange.getEndZdt()));
-    }
-
-    @PostMapping
-    public HttpEntity<Weight> create(@RequestBody Weight weight) {
-        return new HttpEntity<>(weightService.saveWeight(weight));
     }
 
     @DeleteMapping("/{id}")

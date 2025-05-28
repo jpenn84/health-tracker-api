@@ -23,30 +23,14 @@ public class WeightServiceImpl implements IWeightService {
     }
 
     @Override
-    public Weight findById(Long id) {
-        Weight weight =  weightRepository.findById(id).orElse(null);
-
-        if (null == weight)
-            throw new ResourceNotFoundException("Weight with id " + id + " not found");
-
-        return weight;
-    }
-
-    @Override
     @Transactional
-    public Weight update(Weight weight) {
-        return weightRepository.saveAndFlush(weight);
+    public Weight saveWeight(Weight weight) {
+        return weightRepository.save(weight);
     }
 
     @Override
     public List<Weight> getAllWeights() {
         return weightRepository.findAll();
-    }
-
-    @Override
-    @Transactional
-    public Weight saveWeight(Weight weight) {
-        return weightRepository.save(weight);
     }
 
     @Override
@@ -65,6 +49,22 @@ public class WeightServiceImpl implements IWeightService {
     }
 
     @Override
+    public Weight findById(Long id) {
+        Weight weight =  weightRepository.findById(id).orElse(null);
+
+        if (null == weight)
+            throw new ResourceNotFoundException("Weight with id " + id + " not found");
+
+        return weight;
+    }
+
+    @Override
+    @Transactional
+    public Weight update(Weight weight) {
+        return weightRepository.saveAndFlush(weight);
+    }
+
+    @Override
     @Transactional
     public MessageDto deleteWeightById(Long id) {
         Weight weight = findById(id);
@@ -73,7 +73,6 @@ public class WeightServiceImpl implements IWeightService {
 
         if (!weightRepository.existsById(id))
             return MessageDto.success("deleted weight with ID " + id);
-
         else throw new TransactionException("Problem deleting weight with ID " + id);
     }
 
