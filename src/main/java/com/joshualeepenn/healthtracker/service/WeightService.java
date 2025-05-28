@@ -1,11 +1,10 @@
-package com.joshualeepenn.healthtracker.service.impl;
+package com.joshualeepenn.healthtracker.service;
 
 import com.joshualeepenn.healthtracker.dto.MessageDto;
 import com.joshualeepenn.healthtracker.exceptions.ResourceNotFoundException;
 import com.joshualeepenn.healthtracker.exceptions.TransactionException;
 import com.joshualeepenn.healthtracker.model.Weight;
 import com.joshualeepenn.healthtracker.repository.WeightRepository;
-import com.joshualeepenn.healthtracker.service.IWeightService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,26 +13,23 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
-public class WeightServiceImpl implements IWeightService {
+public class WeightService {
 
     private final WeightRepository weightRepository;
 
-    public WeightServiceImpl(WeightRepository weightRepository) {
+    public WeightService(WeightRepository weightRepository) {
         this.weightRepository = weightRepository;
     }
 
-    @Override
     @Transactional
     public Weight saveWeight(Weight weight) {
         return weightRepository.save(weight);
     }
 
-    @Override
     public List<Weight> getAllWeights() {
         return weightRepository.findAll();
     }
 
-    @Override
     public List<Weight> findByDateBetween(ZonedDateTime startZdt, ZonedDateTime endZdt) {
         // TODO: May want to pass String dates (and time zone) and process from there
         // TODO: Test for DST: https://stackoverflow.com/questions/29143910/java-8-date-time-get-start-of-day-from-zoneddatetime
@@ -48,7 +44,6 @@ public class WeightServiceImpl implements IWeightService {
         return weightRepository.findAllByReadingTimeBetweenOrderByReadingTimeAsc(queryStartZdt, queryEndZdt);
     }
 
-    @Override
     public Weight findById(Long id) {
         Weight weight =  weightRepository.findById(id).orElse(null);
 
@@ -58,13 +53,11 @@ public class WeightServiceImpl implements IWeightService {
         return weight;
     }
 
-    @Override
     @Transactional
     public Weight update(Weight weight) {
         return weightRepository.saveAndFlush(weight);
     }
 
-    @Override
     @Transactional
     public MessageDto deleteWeightById(Long id) {
         Weight weight = findById(id);

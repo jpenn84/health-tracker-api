@@ -2,7 +2,7 @@ package com.joshualeepenn.healthtracker.tests.integration;
 
 import com.joshualeepenn.healthtracker.model.Weight;
 import com.joshualeepenn.healthtracker.repository.WeightRepository;
-import com.joshualeepenn.healthtracker.service.impl.WeightServiceImpl;
+import com.joshualeepenn.healthtracker.service.WeightService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +23,7 @@ public class WeightIntegrationTest {
     private WeightRepository weightRepository;
 
     @InjectMocks
-    private WeightServiceImpl weightService;
+    private WeightService weightService;
 
     Weight weight1 = new Weight(1L, 120.0, "Starting weight", testTime.minusDays(2));
     Weight weight2 = new Weight(2L, 121.0, "Ate some cake", testTime.minusDays(1));
